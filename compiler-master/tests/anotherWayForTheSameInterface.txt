@@ -1,0 +1,59 @@
+
+import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { NgIf } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+
+interface Product {
+  name: string;
+  image: string;
+  details: string;
+}
+
+@({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  imports : [NgFor,NgIf]
+})
+export class AppComponent {
+  products: Product[] = [{
+    name:'product 1',
+    image: 'image.jpg',
+    details: `تفاصيل المنتج ${i + 1} هذا المنتج يحتوي على معلومات مميزة.`
+  }];
+
+  selectedProduct: Product | null = null;
+  selectProduct(product: Product) {
+    this.selectedProduct = product;
+  }
+}
+///html
+
+<div class="container">
+  <div class="main-product">
+    <h3>{{ selectedProduct?.name || 'اسم المنتج' }}</h3>
+    <img
+      *ngIf=selectedProduct
+      [src]="selectedProduct.image"
+      alt="صورة المنتج"
+      class="product-image"
+    />
+    <p>{{ selectedProduct?.details || 'تفاصيل المنتج' }}</p>
+  </div>
+
+  <div class="side-products">
+    <div
+      class="side-product"
+      *ngFor=let product of products
+      (click)="selectProduct(product)"
+    >
+      <h4>{{ product.name }}</h4>
+      <img [src]="product.image" alt="صورة المنتج" class="product-image" />
+    </div>
+  </div>
+</div>
+

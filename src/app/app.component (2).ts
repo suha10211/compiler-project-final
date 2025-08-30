@@ -1,0 +1,31 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Product {
+  name: string;
+  image: string;
+  details: string;
+}
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [CommonModule]
+})
+export class AppComponent {
+  products: Product[] = [
+    {
+      name: 'product 1',
+      image: 'image.jpg',
+      details: 'تفاصيل المنتج 1 هذا المنتج يحتوي على معلومات مميزة.'
+    }
+  ];
+
+  selectedProduct: Product | null = null;
+
+  selectProduct(product: Product) {
+    this.selectedProduct = product;
+  }
+} 
